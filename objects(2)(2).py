@@ -16,10 +16,6 @@ plane = p.loadURDF("plane.urdf")
 p.changeVisualShape(plane, -1, rgbaColor=[0.55, 0.35, 0.2, 1])   # brown floor
 p.changeDynamics(plane, -1, contactStiffness=1e6, contactDamping=1e3)
 
-for _ in range(480):
-    p.stepSimulation()
-    time.sleep(1/240)    
-
 # make the uv spheres for the texture to wrap around on
 def make_uv_sphere_obj(filename, stacks=32, slices=32):
     vertices, tex_coords, faces = [], [], []
@@ -93,6 +89,7 @@ def random_safe_position(radius, min_from_origin=0.25, area=0.5):
         # makes it a little bit further from the origin
         if math.hypot(x, y) < min_from_origin:
             continue  
+
         not_overlapping = True
         for (px, py, pr) in placed:
             dist = math.hypot(x - px, y - py)
